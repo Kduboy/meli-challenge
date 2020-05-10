@@ -4,7 +4,12 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon ./src/start.js"
+		"dev": "nodemon ./src/start.js",
+		"db:migrate:test": "cd src/ && cross-env NODE_ENV=test npx sequelize-cli db:migrate",
+		"db:seed:test": "cd src/ && cross-env NODE_ENV=test npx sequelize-cli db:seed:all"
+	},
+	"jest": {
+		"testEnvironment": "node"
 	},
 	"keywords": [],
 	"author": "",
@@ -17,6 +22,7 @@
 		"sequelize": "^5.21.7"
 	},
 	"devDependencies": {
+		"cross-env": "^7.0.2",
 		"jest": "^26.0.1",
 		"nodemon": "^2.0.3",
 		"supertest": "^4.0.2"

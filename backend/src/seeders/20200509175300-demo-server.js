@@ -39,6 +39,12 @@ module.exports = {
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
+			{
+				name: 'Server7',
+				type: 'virtual',
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			},
 		]);
 	},
 
