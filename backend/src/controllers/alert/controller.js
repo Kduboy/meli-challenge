@@ -18,24 +18,30 @@ exports.create = async (req, res) => {
 };
 
 exports.get = async (req, res) => {
-	const whereClausure = {};
-
-	if (req.serverId) {
-		whereClausure.server = req.serverId;
-	}
+	const whereAlerts = {};
+	const whereServers = {};
 
 	if (req.query.description) {
-		whereClausure.description = req.query.description;
+		whereAlerts.description = req.query.description;
+	}
+
+	if (req.query.server) {
+		whereServers.name = req.query.server;
 	}
 
 	try {
 		const alerts = await Alert.findAll({
-			where: { ...whereClausure },
+			where: { ...whereAlerts },
+			include: [
+				{
+					model: Server,
+					as: 'Server',
+					required: true,
+					attributes: ['name'],
+					where: { ...whereServers },
+				},
+			],
 		});
-
-		if (!alerts) {
-			return res.status(404).send();
-		}
 
 		return res.send(alerts);
 	} catch (error) {
@@ -64,10 +70,6 @@ exports.getStatistics = async (req, res) => {
 				},
 			],
 		});
-
-		if (!amount) {
-			return res.status(404).send();
-		}
 
 		return res.send(amount);
 	} catch (error) {

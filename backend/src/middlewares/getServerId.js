@@ -1,26 +1,17 @@
 const { Server } = require('../models');
 
 const getServerId = async (req, res, next) => {
-	const whereClausure = {};
-
-	if (!req.query.server && !req.body.server) {
-		return next();
-	} else {
-		whereClausure.name = req.query.server || req.body.server;
-	}
-
-	if (req.body.server_type) {
-		whereClausure.type = req.body.server_type;
-	}
-
 	try {
 		const server = await Server.findOne({
 			attributes: ['id'],
-			where: { ...whereClausure },
+			where: {
+				name: req.body.server,
+				type: req.body.server_type,
+			},
 		});
 
 		if (!server) {
-			return res.status(404).send({
+			return res.status(403).send({
 				error: 'Server not found',
 			});
 		}

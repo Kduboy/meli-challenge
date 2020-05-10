@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 const { toDateTime } = require('../utils/utils');
 
 const createAlertRules = () => {
+
 	return [
 		body('server').exists().not().isEmpty().isString(),
 		body('description').exists().not().isEmpty().isString(),
