@@ -5,8 +5,8 @@
 	"main": "start.js",
 	"scripts": {
 		"dev": "nodemon ./src/start.js",
-		"db:migrate:test": "cd src/ && cross-env NODE_ENV=test npx sequelize-cli db:migrate",
-		"db:seed:test": "cd src/ && cross-env NODE_ENV=test npx sequelize-cli db:seed --seed 20200509175300-demo-server.js",
+		"db:migrate:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:migrate",
+		"db:seed:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:seed --seed 20200509175300-demo-server.js",
 		"test": "cross-env NODE_ENV=test jest --watch --runInBand"
 	},
 	"jest": {
@@ -24,6 +24,7 @@
 	},
 	"devDependencies": {
 		"cross-env": "^7.0.2",
+		"dotenv": "^8.2.0",
 		"jest": "^26.0.1",
 		"nodemon": "^2.0.3",
 		"supertest": "^4.0.2"
