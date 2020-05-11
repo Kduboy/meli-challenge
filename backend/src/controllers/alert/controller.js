@@ -32,6 +32,7 @@ exports.get = async (req, res) => {
 	try {
 		const alerts = await Alert.findAll({
 			where: { ...whereAlerts },
+			order: [[Sequelize.col('createdAt'), 'DESC']],
 			include: [
 				{
 					model: Server,
