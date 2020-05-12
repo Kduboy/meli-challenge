@@ -14,3 +14,9 @@
 	background-color: #2d3277;
 	border-color: #2d3277;
 }
+
+.BtnPrimary:disabled {
+	color: #fff;
+	background-color: lightgray;
+	border-color: lightgray;
+}

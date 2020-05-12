@@ -1,19 +1,23 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
+import AlertsContainer from '../../components/AlertsContainer/AlertsContainer';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
+import { getCurrentAlerts } from '../../utils/utils';
 import axios from '../../config/axios/alerts';
 import classes from './AlertFinder.module.css';
-import AlertsContainer from '../../components/AlertsContainer/AlertsContainer';
 
 const AlertFinder = () => {
-	const [server, setServer] = useState('');
-	const [description, setDescription] = useState('');
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
 	const [alerts, setAlerts] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [description, setDescription] = useState('');
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [server, setServer] = useState('');
+
+	const ALARMS_PER_PAGE = 4;
 
 	useEffect(() => {
 		setLoading(true);
@@ -29,7 +33,7 @@ const AlertFinder = () => {
 			});
 	}, []);
 
-	const searchAlarmsHandler = () => {
+	const searchAlertsHandler = () => {
 		const queryParams = [];
 
 		if (server) {
@@ -50,6 +54,8 @@ const AlertFinder = () => {
 			.then((response) => {
 				setLoading(false);
 				setAlerts(response.data);
+				setServer('');
+				setDescription('');
 			})
 			.catch((error) => {
 				setLoading(false);
@@ -57,11 +63,32 @@ const AlertFinder = () => {
 			});
 	};
 
-	let response = <Spinner />;
-	let errorResponse = null;
+	const paginate = (page) => {
+		setCurrentPage(page);
+	};
 
-	if (alerts.length) {
-		response = <AlertsContainer alerts={alerts} />;
+	let allAlerts = null;
+	let errorResponse = null;
+	let currentAlerts = null;
+
+	if (loading) {
+		allAlerts = <Spinner />;
+	} else if (alerts.length === 0) {
+		allAlerts = (
+			<h2 style={{ color: 'red', textAlign: 'center' }}>
+				There are no alerts
+			</h2>
+		);
+	} else {
+		currentAlerts = getCurrentAlerts(currentPage, ALARMS_PER_PAGE, alerts);
+		allAlerts = (
+			<AlertsContainer
+				alerts={currentAlerts}
+				paginate={paginate}
+				currentPage={currentPage}
+				lastPage={Math.ceil(alerts.length / ALARMS_PER_PAGE)}
+			/>
+		);
 	}
 
 	if (error) {
@@ -85,9 +112,9 @@ const AlertFinder = () => {
 					label='Description'
 					changed={(event) => setDescription(event.target.value)}
 				/>
-				<Button text='Search' clicked={searchAlarmsHandler} />
+				<Button text='Search' clicked={searchAlertsHandler} />
 			</div>
-			{errorResponse ? errorResponse : response}
+			{errorResponse ? errorResponse : allAlerts}
 		</Fragment>
 	);
 };
