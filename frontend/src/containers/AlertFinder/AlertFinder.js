@@ -11,11 +11,11 @@ import classes from './AlertFinder.module.css';
 
 const AlertFinder = () => {
 	const [alerts, setAlerts] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [description, setDescription] = useState('');
-	const [error, setError] = useState(null);
-	const [loading, setLoading] = useState(false);
 	const [server, setServer] = useState('');
+	const [description, setDescription] = useState('');
+	const [currentPage, setCurrentPage] = useState(1);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	const ALARMS_PER_PAGE = 4;
 
