@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../Button/Button';
 
 import classes from './Pagination.module.css';
 
-const Pagination = (props) => {
+const pagination = (props) => {
 	return (
 		<div className={classes.Pagination}>
 			<Button
@@ -31,4 +32,10 @@ const Pagination = (props) => {
 	);
 };
 
-export default Pagination;
+pagination.propTypes = {
+	paginate: PropTypes.func.isRequired,
+	currentPage: PropTypes.number.isRequired,
+	lastPage: PropTypes.number.isRequired,
+};
+
+export default pagination;

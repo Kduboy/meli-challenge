@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Input.module.css';
 
@@ -32,6 +33,13 @@ const input = (props) => {
 			{inputElement}
 		</Fragment>
 	);
+};
+
+input.propTypes = {
+	elementType: PropTypes.string.isRequired,
+	value: PropTypes.string,
+	changed: PropTypes.func.isRequired,
+	label: PropTypes.string.isRequired,
 };
 
 export default input;

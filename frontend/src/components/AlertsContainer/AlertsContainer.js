@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Alert from './AlertContainer/AlertContainer';
 import Pagination from '../UI/Pagination/Pagination';
 
 import classes from './AlertsContainer.module.css';
 
-const AlertsContainer = (props) => {
+const alertsContainer = (props) => {
 	const alerts = props.alerts.map((alert) => {
 		return (
 			<Alert
@@ -33,4 +34,11 @@ const AlertsContainer = (props) => {
 	);
 };
 
-export default AlertsContainer;
+alertsContainer.propTypes = {
+	alerts: PropTypes.array.isRequired,
+	paginate: PropTypes.func.isRequired,
+	currentPage: PropTypes.number.isRequired,
+	lastPage: PropTypes.number.isRequired,
+};
+
+export default alertsContainer;

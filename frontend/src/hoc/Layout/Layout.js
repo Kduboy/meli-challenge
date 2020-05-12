@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 
@@ -11,6 +12,10 @@ const layout = (props) => {
 			<main className={classes.Content}>{props.children}</main>
 		</Fragment>
 	);
+};
+
+layout.propTypes = {
+	children: PropTypes.any.isRequired,
 };
 
 export default layout;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './Toolbar.module.css';
 
-const Toolbar = () => {
+const toolbar = () => {
 	return (
 		<header className={classes.Toolbar}>
 			<h1>Mercado Libre Challenge</h1>
@@ -10,4 +10,4 @@ const Toolbar = () => {
 	);
 };
 
-export default Toolbar;
+export default toolbar;
