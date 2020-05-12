@@ -1,0 +1,14 @@
+.Toolbar {
+	height: 70px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #fff159;
+	padding: 0 20px;
+}
+
+.Toolbar h1 {
+	text-align: center;
+	color: #2d3277;
+}

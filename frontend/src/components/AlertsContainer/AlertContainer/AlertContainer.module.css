@@ -1,0 +1,22 @@
+.Alert {
+	width: 500px;
+	border: 1px solid lightgray;
+	margin-bottom: 10px;
+}
+
+.Alert div {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: #fff159;
+}
+
+.Alert p {
+	text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+	.Alert {
+		width: 600px;
+	}
+}

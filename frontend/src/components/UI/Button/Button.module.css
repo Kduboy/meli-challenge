@@ -1,0 +1,16 @@
+.Btn {
+	display: inline-block;
+	font-weight: 400;
+	font-size: 1rem;
+	text-align: center;
+	border: 1px solid transparent;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	padding: 10px;
+}
+
+.BtnPrimary {
+	color: #fff;
+	background-color: #2d3277;
+	border-color: #2d3277;
+}

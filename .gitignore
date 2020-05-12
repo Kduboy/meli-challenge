@@ -2,3 +2,6 @@
 /backend/package-lock.json
 /backend/api.rest
 /backend/.env
+
+.DS_Store
+/frontend/node_modules
