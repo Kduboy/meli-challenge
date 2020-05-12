@@ -21,20 +21,14 @@ const AlertsContainer = (props) => {
 		);
 	});
 
-	const pagination =
-		props.currentPage === 1 &&
-		props.currentPage === props.lastPage ? null : (
+	return (
+		<div className={classes.Alerts}>
+			{alerts}
 			<Pagination
 				paginate={props.paginate}
 				currentPage={props.currentPage}
 				lastPage={props.lastPage}
 			/>
-		);
-
-	return (
-		<div className={classes.Alerts}>
-			{alerts}
-			{pagination}
 		</div>
 	);
 };

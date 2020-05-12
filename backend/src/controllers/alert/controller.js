@@ -30,7 +30,7 @@ exports.get = async (req, res) => {
 	}
 
 	try {
-		const alerts = await Alert.findAll({
+		const alerts = await Alert.findAndCountAll({
 			where: { ...whereAlerts },
 			order: [[Sequelize.col('createdAt'), 'DESC']],
 			include: [
@@ -42,6 +42,8 @@ exports.get = async (req, res) => {
 					where: { ...whereServers },
 				},
 			],
+			limit: parseInt(req.query.limit),
+			offset: parseInt(req.query.offset),
 		});
 
 		return res.send(alerts);

@@ -5,7 +5,6 @@ import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-import { getCurrentAlerts } from '../../utils/utils';
 import axios from '../../config/axios/alerts';
 import classes from './AlertFinder.module.css';
 
@@ -13,27 +12,15 @@ const AlertFinder = () => {
 	const [alerts, setAlerts] = useState([]);
 	const [server, setServer] = useState('');
 	const [description, setDescription] = useState('');
-	const [currentPage, setCurrentPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState(0);
+	const [maxAlerts, setMaxAlerts] = useState(0);
 	const [loading, setLoading] = useState(false);
+	const [isSending, setIsSending] = useState(false);
 	const [error, setError] = useState(null);
 
-	const ALARMS_PER_PAGE = 4;
+	const ALERTS_PER_PAGE = 4;
 
 	useEffect(() => {
-		setLoading(true);
-		axios
-			.get('/alerts')
-			.then((response) => {
-				setLoading(false);
-				setAlerts(response.data);
-			})
-			.catch((error) => {
-				setLoading(false);
-				setError('Cannot get alarms!!!');
-			});
-	}, []);
-
-	const searchAlertsHandler = () => {
 		const queryParams = [];
 
 		if (server) {
@@ -47,20 +34,24 @@ const AlertFinder = () => {
 		setLoading(true);
 		axios
 			.get(
-				`/alerts?${
+				`/alerts?offset=${currentPage * ALERTS_PER_PAGE}
+				&limit=${ALERTS_PER_PAGE}&${
 					queryParams.length > 1 ? queryParams.join('&') : queryParams
 				}`
 			)
 			.then((response) => {
 				setLoading(false);
-				setAlerts(response.data);
-				setServer('');
-				setDescription('');
+				setAlerts(response.data.rows);
+				setMaxAlerts(response.data.count);
 			})
 			.catch((error) => {
 				setLoading(false);
 				setError('Cannot get alarms!!!');
 			});
+	}, [currentPage, isSending]);
+
+	const searchAlertsHandler = () => {
+		setIsSending((prevState) => !prevState);
 	};
 
 	const paginate = (page) => {
@@ -69,7 +60,6 @@ const AlertFinder = () => {
 
 	let allAlerts = null;
 	let errorResponse = null;
-	let currentAlerts = null;
 
 	if (loading) {
 		allAlerts = <Spinner />;
@@ -80,13 +70,12 @@ const AlertFinder = () => {
 			</h2>
 		);
 	} else {
-		currentAlerts = getCurrentAlerts(currentPage, ALARMS_PER_PAGE, alerts);
 		allAlerts = (
 			<AlertsContainer
-				alerts={currentAlerts}
+				alerts={alerts}
 				paginate={paginate}
 				currentPage={currentPage}
-				lastPage={Math.ceil(alerts.length / ALARMS_PER_PAGE)}
+				lastPage={Math.ceil(maxAlerts / ALERTS_PER_PAGE - 1)}
 			/>
 		);
 	}
