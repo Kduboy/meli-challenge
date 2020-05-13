@@ -4,8 +4,9 @@ import AlertsContainer from '../../components/AlertsContainer/AlertsContainer';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import * as services from '../../services/AlertFinder/services';
+import * as constants from '../../config/constants/constants';
 
-import axios from '../../config/axios/alerts';
 import classes from './AlertFinder.module.css';
 
 const AlertFinder = () => {
@@ -18,40 +19,21 @@ const AlertFinder = () => {
 	const [isSending, setIsSending] = useState(false);
 	const [error, setError] = useState(null);
 
-	const ALERTS_PER_PAGE = 4;
-
 	useEffect(() => {
-		const queryParams = [];
-
-		if (server) {
-			queryParams.push(`server=${server}`);
-		}
-
-		if (description) {
-			queryParams.push(`description=${description}`);
-		}
-
-		setLoading(true);
-		axios
-			.get(
-				`/alerts?offset=${currentPage * ALERTS_PER_PAGE}
-				&limit=${ALERTS_PER_PAGE}&${
-					queryParams.length > 1 ? queryParams.join('&') : queryParams
-				}`
-			)
-			.then((response) => {
-				setLoading(false);
-				setAlerts(response.data.rows);
-				setMaxAlerts(response.data.count);
-			})
-			.catch((error) => {
-				setLoading(false);
-				setError('Cannot get alarms!!!');
-			});
+		services.getAlarms(
+			server,
+			description,
+			currentPage,
+			setLoading,
+			setAlerts,
+			setMaxAlerts,
+			setError
+		);
 	}, [currentPage, isSending]);
 
 	const searchAlertsHandler = () => {
 		setIsSending((prevState) => !prevState);
+		setCurrentPage(0);
 	};
 
 	const paginate = (page) => {
@@ -75,7 +57,7 @@ const AlertFinder = () => {
 				alerts={alerts}
 				paginate={paginate}
 				currentPage={currentPage}
-				lastPage={Math.ceil(maxAlerts / ALERTS_PER_PAGE - 1)}
+				lastPage={Math.ceil(maxAlerts / constants.ALERTS_PER_PAGE - 1)}
 			/>
 		);
 	}
