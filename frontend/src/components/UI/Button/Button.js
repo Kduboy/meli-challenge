@@ -6,6 +6,7 @@ import classes from './Button.module.css';
 const button = (props) => {
 	return (
 		<button
+			data-test='component-button'
 			className={[classes.Btn, classes.BtnPrimary].join(' ')}
 			onClick={props.clicked}
 			disabled={props.disabled}

@@ -10,6 +10,7 @@ const input = (props) => {
 		case 'input':
 			inputElement = (
 				<input
+					data-test='component-input'
 					className={classes.InputElement}
 					value={props.value}
 					onChange={props.changed}
@@ -19,6 +20,7 @@ const input = (props) => {
 		default:
 			inputElement = (
 				<input
+					data-test='component-input'
 					className={classes.InputElement}
 					value={props.value}
 					onChange={props.changed}
@@ -29,7 +31,9 @@ const input = (props) => {
 
 	return (
 		<Fragment>
-			<label className={classes.Label}>{props.label}</label>
+			<label data-test='label-text' className={classes.Label}>
+				{props.label}
+			</label>
 			{inputElement}
 		</Fragment>
 	);

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import classes from './AlertContainer.module.css';
 
 const alertContainer = (props) => (
-	<div className={classes.Alert}>
-		<div>
-			<p>{props.server}</p>
-			<p>{props.createdAt}</p>
+	<div data-test='component-alert-container' className={classes.Alert}>
+		<div data-test='header-alert'>
+			<p data-test='server-paragraph'>{props.server}</p>
+			<p data-test='createdAt-paragraph'>{props.createdAt}</p>
 		</div>
-		<p>{props.description}</p>
+		<p data-test='description-paragraph'>{props.description}</p>
 	</div>
 );
 

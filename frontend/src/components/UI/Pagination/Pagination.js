@@ -7,23 +7,27 @@ import classes from './Pagination.module.css';
 
 const pagination = (props) => {
 	return (
-		<div className={classes.Pagination}>
+		<div data-test='component-pagination' className={classes.Pagination}>
 			<Button
+				data-test='button-first'
 				text='First'
 				clicked={() => props.paginate(0)}
 				disabled={props.currentPage === 0}
 			/>
 			<Button
+				data-test='button-prev'
 				text='<<'
 				clicked={() => props.paginate(props.currentPage - 1)}
 				disabled={props.currentPage === 0}
 			/>
 			<Button
+				data-test='button-next'
 				text='>>'
 				clicked={() => props.paginate(props.currentPage + 1)}
 				disabled={props.currentPage === props.lastPage}
 			/>
 			<Button
+				data-test='button-last'
 				text='Last'
 				clicked={() => props.paginate(props.lastPage)}
 				disabled={props.currentPage === props.lastPage}
