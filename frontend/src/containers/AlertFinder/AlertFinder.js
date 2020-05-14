@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 
 import AlertsContainer from '../../components/AlertsContainer/AlertsContainer';
 import Button from '../../components/UI/Button/Button';
@@ -10,16 +10,16 @@ import * as constants from '../../config/constants/constants';
 import classes from './AlertFinder.module.css';
 
 const AlertFinder = () => {
-	const [alerts, setAlerts] = useState([]);
-	const [server, setServer] = useState('');
-	const [description, setDescription] = useState('');
-	const [currentPage, setCurrentPage] = useState(0);
-	const [maxAlerts, setMaxAlerts] = useState(0);
-	const [loading, setLoading] = useState(false);
-	const [isSending, setIsSending] = useState(false);
-	const [error, setError] = useState(null);
+	const [alerts, setAlerts] = React.useState([]);
+	const [server, setServer] = React.useState('');
+	const [description, setDescription] = React.useState('');
+	const [currentPage, setCurrentPage] = React.useState(0);
+	const [maxAlerts, setMaxAlerts] = React.useState(0);
+	const [loading, setLoading] = React.useState(false);
+	const [isSending, setIsSending] = React.useState(false);
+	const [error, setError] = React.useState(null);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		const getAlarms = services.getAlarms(server, description, currentPage);
 
 		getAlarms
@@ -73,20 +73,29 @@ const AlertFinder = () => {
 
 	return (
 		<Fragment>
-			<div className={classes.AlertFinder}>
+			<div
+				data-test='component-alert-finder'
+				className={classes.AlertFinder}
+			>
 				<Input
+					data-test='input-server'
 					elementType='input'
 					value={server}
 					label='Server'
 					changed={(event) => setServer(event.target.value)}
 				/>
 				<Input
+					data-test='input-description'
 					elementType='input'
 					value={description}
 					label='Description'
 					changed={(event) => setDescription(event.target.value)}
 				/>
-				<Button text='Search' clicked={searchAlertsHandler} />
+				<Button
+					data-test='search-button'
+					text='Search'
+					clicked={searchAlertsHandler}
+				/>
 			</div>
 			{errorResponse ? errorResponse : allAlerts}
 		</Fragment>
