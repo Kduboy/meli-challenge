@@ -41,4 +41,13 @@ describe('<Input />', () => {
 
 		expect(labelNode.text()).toEqual('Server');
 	});
+
+	test('Should render input type if prop.elementType is input', () => {
+		const wrapper = setup({
+			elementType: 'input',
+		});
+		const inputBox = findByTestAttr(wrapper, 'component-input');
+
+		expect(inputBox.type()).toEqual('input');
+	});
 });

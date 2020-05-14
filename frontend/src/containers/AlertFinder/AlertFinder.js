@@ -20,15 +20,18 @@ const AlertFinder = () => {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		services.getAlarms(
-			server,
-			description,
-			currentPage,
-			setLoading,
-			setAlerts,
-			setMaxAlerts,
-			setError
-		);
+		const getAlarms = services.getAlarms(server, description, currentPage);
+
+		getAlarms
+			.then((response) => {
+				setLoading(false);
+				setAlerts(response.data.rows);
+				setMaxAlerts(response.data.count);
+			})
+			.catch((error) => {
+				setLoading(false);
+				setError('Cannot get alarms!!!');
+			});
 	}, [currentPage, isSending]);
 
 	const searchAlertsHandler = () => {
