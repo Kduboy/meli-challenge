@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "nodemon ./src/start.js",
 		"db:migrate:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:migrate",
-		"db:seed:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:seed --seed 20200509175300-demo-server.js",
+		"db:seed:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:seed:all",
 		"test": "cross-env NODE_ENV=test jest --watch --runInBand"
 	},
 	"jest": {
