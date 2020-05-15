@@ -16,7 +16,7 @@ module.exports = {
 			{
 				server: 1,
 				description: 'broken cooler fan',
-				createdAt: new Date(2020, 03, 04),
+				createdAt: new Date(2020, 05, 04),
 				updatedAt: new Date(),
 			},
 			{
@@ -34,7 +34,7 @@ module.exports = {
 			{
 				server: 3,
 				description: 'disk capacity warning',
-				createdAt: new Date(2019, 06, 07),
+				createdAt: new Date(2019, 05, 07),
 				updatedAt: new Date(),
 			},
 			{
@@ -82,7 +82,7 @@ module.exports = {
 			{
 				server: 1,
 				description: 'downtime',
-				createdAt: new Date(2020, 02, 05),
+				createdAt: new Date(2020, 05, 05),
 				updatedAt: new Date(),
 			},
 			{
