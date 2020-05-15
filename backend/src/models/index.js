@@ -20,6 +20,11 @@ if (config.use_env_variable) {
 	);
 }
 
+sequelize
+	.authenticate()
+	.then(() => console.log('Connected'))
+	.catch((error) => console.log(error));
+
 fs.readdirSync(__dirname)
 	.filter((file) => {
 		return (

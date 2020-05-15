@@ -60,11 +60,25 @@ describe('POST alerts', () => {
 });
 
 describe('GET alarms', () => {
-	test('Should get all the alarms', async () => {
+	test('Should get all the alarms by offset and limit', async () => {
 		const response = await request(app).get('/alerts').send().expect(200);
 
-		expect(response.body instanceof Array).toBeTruthy();
-		expect(response.body).toHaveLength(10);
+		expect(response.body instanceof Object).toBeTruthy();
+		expect(response.body.counts).not.toBeNull();
+		expect(response.body.rows instanceof Array).toBeTruthy();
+		expect(response.body.rows).toHaveLength(4);
+	});
+
+	test('Should get 10 alarms if limit is 10', async () => {
+		const response = await request(app)
+			.get('/alerts?offset=0&limit=10')
+			.send()
+			.expect(200);
+
+		expect(response.body instanceof Object).toBeTruthy();
+		expect(response.body.counts).not.toBeNull();
+		expect(response.body.rows instanceof Array).toBeTruthy();
+		expect(response.body.rows).toHaveLength(10);
 	});
 
 	test('Should get an empty array if there is no alarms', async () => {
@@ -72,23 +86,25 @@ describe('GET alarms', () => {
 
 		const response = await request(app).get('/alerts').send().expect(200);
 
-		expect(response.body instanceof Array).toBeTruthy();
-		expect(response.body).toHaveLength(0);
+		expect(response.body instanceof Object).toBeTruthy();
+		expect(response.body.count).toBe(0);
+		expect(response.body.rows instanceof Array).toBeTruthy();
+		expect(response.body.rows).toHaveLength(0);
 	});
 });
 
 describe('GET alarms with query params', () => {
 	test('Should get alarms by server name', async () => {
 		const response = await request(app)
-			.get('/alerts?server=Server2')
+			.get('/alerts?&server=Server2')
 			.send()
 			.expect(200);
 
-		const alerts = response.body.filter(
+		const alerts = response.body.rows.filter(
 			(alert) => alert.Server.name !== 'Server2'
 		);
 
-		expect(response.body instanceof Array).toBeTruthy();
+		expect(response.body instanceof Object).toBeTruthy();
 		expect(alerts).toHaveLength(0);
 	});
 
@@ -98,11 +114,11 @@ describe('GET alarms with query params', () => {
 			.send()
 			.expect(200);
 
-		const alerts = response.body.filter(
+		const alerts = response.body.rows.filter(
 			(alert) => alert.description !== 'downtime'
 		);
 
-		expect(response.body instanceof Array).toBeTruthy();
+		expect(response.body instanceof Object).toBeTruthy();
 		expect(alerts).toHaveLength(0);
 	});
 
@@ -112,24 +128,24 @@ describe('GET alarms with query params', () => {
 			.send()
 			.expect(200);
 
-		const alerts = response.body.filter(
+		const alerts = response.body.rows.filter(
 			(alert) =>
 				alert.Server.name !== 'Server2' &&
 				alert.description !== 'downtime'
 		);
 
-		expect(response.body instanceof Array).toBeTruthy();
+		expect(response.body instanceof Object).toBeTruthy();
 		expect(alerts).toHaveLength(0);
 	});
 
 	test("Should get an empty array of alarms if server name or description doesn't match", async () => {
 		const response = await request(app)
-			.get('/alerts?server=Server2&description=no-pingeable')
+			.get('/alerts?server=Server10&description=throwError')
 			.send()
 			.expect(200);
 
-		expect(response.body instanceof Array).toBeTruthy();
-		expect(response.body).toHaveLength(0);
+		expect(response.body instanceof Object).toBeTruthy();
+		expect(response.body.rows).toHaveLength(0);
 	});
 });
 

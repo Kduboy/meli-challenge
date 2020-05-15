@@ -4,9 +4,11 @@
 	"description": "",
 	"main": "start.js",
 	"scripts": {
+		"start": "node ./src/start.js",
 		"dev": "nodemon ./src/start.js",
-		"db:migrate:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:migrate",
-		"db:seed:test": "cd src/database && cross-env NODE_ENV=test npx sequelize-cli db:seed:all",
+		"db:create:databases": "cd src/database && npx sequelize-cli db:create && cross-env NODE_ENV=test npx sequelize-cli db:create",
+		"db:migrate": "cd src/database && npx sequelize-cli db:migrate && cross-env NODE_ENV=test npx sequelize-cli db:migrate",
+		"db:seed:all": "cd src/database && npx sequelize-cli db:seed:all && cross-env NODE_ENV=test npx sequelize-cli db:seed:all",
 		"test": "cross-env NODE_ENV=test jest --watch --runInBand"
 	},
 	"jest": {

@@ -20,6 +20,10 @@ exports.create = async (req, res) => {
 exports.get = async (req, res) => {
 	const whereAlerts = {};
 	const whereServers = {};
+	const whereLimits = {
+		limit: 4,
+		offset: 0,
+	};
 
 	if (req.query.description) {
 		whereAlerts.description = req.query.description;
@@ -27,6 +31,14 @@ exports.get = async (req, res) => {
 
 	if (req.query.server) {
 		whereServers.name = req.query.server;
+	}
+
+	if (req.query.limit) {
+		whereLimits.limit = parseInt(req.query.limit);
+	}
+
+	if (req.query.offset) {
+		whereLimits.offset = parseInt(req.query.offset);
 	}
 
 	try {
@@ -42,8 +54,7 @@ exports.get = async (req, res) => {
 					where: { ...whereServers },
 				},
 			],
-			limit: parseInt(req.query.limit),
-			offset: parseInt(req.query.offset),
+			...whereLimits,
 		});
 
 		return res.send(alerts);
