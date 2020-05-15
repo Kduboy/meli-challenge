@@ -1,9 +1,9 @@
 # Meli-challenge
 
--   Get all alarms
+-   Get all alerts
 -   Filter by server name or description
--   Create new alarms (testing scope)
--   Get the server with the most ocurrency of alarms on the current month
+-   Create new alerts
+-   Get the server with the most ocurrency of alerts on the current month
 
 ### Endpoints
 
@@ -19,8 +19,8 @@
 | ----------- | ------- | ----------------- | --------- | ----------- |
 | server      | string  | server name       | no        | query param |
 | description | string  | description issue | no        | query param |
-| offset      | numeric | skip alarms       | no        | query param |
-| limit       | numeric | limit of alarms   | no        | query param |
+| offset      | numeric | skip alerts       | no        | query param |
+| limit       | numeric | limit of alerts   | no        | query param |
 
 Request example:
 
