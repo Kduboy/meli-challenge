@@ -50,6 +50,11 @@ const alarm10 = {
 	description: 'downtime',
 };
 
+const alarm11 = {
+	server: 1,
+	description: 'S.O kernel warning',
+};
+
 const setupData = async () => {
 	await Alert.destroy({
 		truncate: true,
@@ -64,6 +69,7 @@ const setupData = async () => {
 	await Alert.create(alarm8);
 	await Alert.create(alarm9);
 	await Alert.create(alarm10);
+	await Alert.create(alarm11);
 };
 
 const destroyAlerts = async () => {
