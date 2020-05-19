@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    frontend:
+        build: ./frontend
+        container_name: meli_challenge_frontend
+        restart: always
+        stdin_open: true
+        ports:
+            - 3000:3000
+        depends_on:
+            - backend
+    backend:
+        build: ./backend
+        container_name: meli_challenge_backend
+        ports:
+            - 5000:5000
+        env_file: ./backend/.env
+        depends_on:
+            - mysql
+    mysql:
+        image: mysql:5.7
+        container_name: meli_challenge_mysql
+        environment:
+            - MYSQL_DATABASE=meli_challenge
+            - MYSQL_ROOT_PASSWORD=secret
+            - MYSQL_USER=root
+        restart: always
+        volumes:
+            - ./sql-scripts:/docker-entrypoint-initdb.d/
