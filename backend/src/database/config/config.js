@@ -11,8 +11,12 @@ module.exports = {
         dialect: 'mysql',
     },
     test: {
-        dialect: 'sqlite',
-        storage: ':memory:',
+        username: process.env.MYSQL_USER,
+        password: process.env.MYSQL_ROOT_PASSWORD,
+        database: process.env.MYSQL_DATABASE_TEST,
+        host: process.env.DB_HOST,
+        dialect: 'mysql',
+        logging: false,
     },
     production: {
         username: 'root',

@@ -20,7 +20,7 @@ services:
             - mysql
     mysql:
         image: mysql:5.7
-        container_name: meli_challenge_mysql
+        container_name: meli_mysql
         environment:
             - MYSQL_DATABASE=meli_challenge
             - MYSQL_ROOT_PASSWORD=secret
