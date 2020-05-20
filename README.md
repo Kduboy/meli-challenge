@@ -174,80 +174,50 @@ Status Code: 201 Created
 
 ### Before get started
 
--   Check if you have installed MySQL (if you use MAC, you can install Sequel Pro for GUI)
 -   Create .env file on backend directory with the following content
 
 ```sh
-DATABASE_USERNAME_DEV=<your_username>
-DATABASE_PASSWORD_DEV=<your_password>
-DATABASE_NAME_DEV=meli_challenge
-DATABASE_HOST_DEV=127.0.0.1
-
-DATABASE_USERNAME_TEST=<your_username>
-DATABASE_PASSWORD_TEST=<your_password>
-DATABASE_NAME_TEST=meli_challenge_test
-DATABASE_HOST_TEST=127.0.0.1
+MYSQL_USER=root
+MYSQL_ROOT_PASSWORD=secret
+MYSQL_DATABASE=meli_challenge
+MYSQL_DATABASE_TEST=meli_challenge_test
+DB_HOST=meli_mysql
 ```
 
-### Install dependencies
+### Build the app
 
-Backend
-
-```sh
-$ cd meli-challenge/backend
-$ npm install
-```
-
-Frontend
+Open your terminal and run the following commands
 
 ```sh
-$ cd meli-challenge-app/frontend
-$ npm install
-```
-
-### Create database, migrate tables and seed data
-
-Run the following commands on backend directory
-
-```sh
-$ npm run db:create:databases
-$ npm run db:migrate
-$ npm run db:seed:all
+$ cd meli-challenge/
+$ docker-compose up --build
 ```
 
 ### Run tests
 
+Open your terminal and run the following commands
+
+```sh
+$ docker ps
+```
+
 Backend
 
 ```sh
-$ cd meli-challenge/backend
+$ docker exec -it <containerId-meli_challenge_backend> /bin/bash
 $ npm run test
 ```
 
 Frontend
 
 ```sh
-$ cd meli-challenge/frontend
+$ docker exec -it <containerId-meli_challenge_frontend> /bin/bash
 $ npm run test
 ```
 
-### Start the app
+### Start the App
 
-Backend
-
-```sh
-$ cd meli-challenge/backend
-$ npm run start
-```
-
-Frontend
-
-```sh
-$ cd meli-challenge/frontend
-$ npm run start
-```
-
-Now open your browser on [http://localhost:3000/] and have fun!!!
+Open your browser on [http://localhost:3000/] and have fun!!!
 
 [//]: #
 [http://localhost:3000/]: http://localhost:3000/
